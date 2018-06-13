@@ -13,7 +13,12 @@ if (length(args) != 1) {
 
 source("./config.R")
 
-budget <- read_ods(budget_file,col_types=cols(col_character(),col_date(format='%Y-%m-%d'),col_number(),col_character(),col_character(),col_integer()))
+budget <- read_ods(budget_file,col_types=cols(col_character(),
+					      col_date(format='%Y-%m-%d'),
+					      col_number(),
+					      col_character(),
+					      col_character(),
+					      col_integer()))
 str(budget)
 #cat_lookups <- budget$lookup
 #budget <- select(budget,-lookup)

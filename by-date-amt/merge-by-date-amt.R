@@ -31,7 +31,7 @@ new_trans <- filter(new_trans,Transaction.Type == "Debit") %>%
 	mutate(key = paste(as.Date(Posting.Date,format='%m/%d/%Y'),Amount,gsub(" +",' ',Description),sep="|"),
               Posting.Date = as.Date(Posting.Date,format='%m/%d/%Y'),
 	       category = "",
-	       period=NA)
+	       period=0)
 
 head(new_trans)
 new_trans_append <- filter(new_trans,! key %in% budget$key)

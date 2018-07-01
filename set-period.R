@@ -6,7 +6,7 @@ library(readr)
 library(purrr)
 
 set_period <- function(date,orig_period,start,end) {
-	period <- as.POSIXlt(start)[['mon']] + 1	
+	period <- as.POSIXlt(start)[1,'mon'] + 1	
 	if((! is.na(date)) && date >= start && date <= end) {
 	        period		
 	} else {
@@ -36,6 +36,7 @@ str(budget)
 #cat_lookups <- budget$lookup
 #budget <- select(budget,-lookup)
 
+#set_period(budget$Posting.Date[1],budget$period[0],start=start_date,end=end_date)
 new_period <- map2_dbl(budget$Posting.Date,budget$period,set_period,start=start_date,end=end_date) 
 new_budget <- mutate(budget,period = new_period)
 

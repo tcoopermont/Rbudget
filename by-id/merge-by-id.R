@@ -38,7 +38,7 @@ new_trans <- filter(new_trans,Transaction.Type == "Debit") %>%
 	mutate(
 	       #Transaction.ID = unite(t1,t2,t3,t4,t5,sep=","),
 	       Posting.Date = as.Date(Posting.Date,format='%m/%d/%Y'),
-	       category = "",period=NA) 
+	       category = "",period=0) 
 	
 
 head(new_trans)

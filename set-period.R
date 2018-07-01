@@ -5,7 +5,7 @@ library(readODS)
 library(readr)
 library(purrr)
 
-set_period <- function(date,orig_period,period,start,end) {
+set_period <- function(date,orig_period,start,end) {
 	period <- as.POSIXlt(start)[['mon']] + 1	
 	if((! is.na(date)) && date >= start && date <= end) {
 	        period		
@@ -16,15 +16,16 @@ set_period <- function(date,orig_period,period,start,end) {
 args = commandArgs(trailingOnly=TRUE)
 
 if (length(args) != 2) {
-  stop("start_date and end_date be supplied.\n", call.=FALSE)
+  stop("start_date and end_date be supplied yyyy-mm-dd.\n", call.=FALSE)
 } else {
   # default output file
-  start_date = as.Date(args[1])
-  end_date = as.Date(args[2])
+  start_date <- as.Date(args[1])
+  end_date <- as.Date(args[2])
 }
+print(start_date)
 
 
-source("./config.R")
+source("../config.R")
 
 budget <- read_ods(budget_file,col_types=cols(col_character(),
 					      col_date(format='%Y-%m-%d'),
@@ -34,7 +35,6 @@ budget <- read_ods(budget_file,col_types=cols(col_character(),
 str(budget)
 #cat_lookups <- budget$lookup
 #budget <- select(budget,-lookup)
-
 
 new_period <- map2_dbl(budget$Posting.Date,budget$period,set_period,start=start_date,end=end_date) 
 new_budget <- mutate(budget,period = new_period)

@@ -11,7 +11,7 @@ if (length(args) != 1) {
   source_file <- args[1]
 }
 
-source("./config.R")
+source("../config.R")
 
 budget <- read_ods(budget_file,col_types=cols(col_character(),
 					      col_date(format='%Y-%m-%d'),
@@ -28,7 +28,7 @@ new_trans <- read.csv(source_file)
 
 new_trans <- filter(new_trans,Transaction.Type == "Debit") %>%
 	select(Transaction.ID,Posting.Date,Amount,Description) %>%
-	mutate(key = paste(Posting.Date,Amount,Description,sep="|")
+	mutate(key = paste(as.Date(Posting.Date,format='%m/%d/%Y'),Amount,gsub(" +",' ',Description),sep="|"),
               Posting.Date = as.Date(Posting.Date,format='%m/%d/%Y'),
 	       category = "",
 	       period=NA)

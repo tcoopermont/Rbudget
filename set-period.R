@@ -6,7 +6,7 @@ library(readr)
 library(purrr)
 
 set_period <- function(date,orig_period,start,end) {
-	period <- as.POSIXlt(start)[1,'mon'] + 1	
+	period <- as.POSIXlt(start)$mon + 1	
 	if((! is.na(date)) && date >= start && date <= end) {
 	        period		
 	} else {
